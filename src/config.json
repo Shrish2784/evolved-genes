@@ -1,0 +1,9 @@
+{
+  "projectName": "Evolved",
+  "apps": [
+    {
+      "appName": "Writer",
+      "appUrl": "/writer"
+    }
+  ]
+}

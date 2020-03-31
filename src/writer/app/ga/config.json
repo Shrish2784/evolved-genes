@@ -1,0 +1,19 @@
+{
+  "popSize": 100,
+  "mutationRate": 0.2,
+  "maxLength": 100,
+  "characters": "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  "charactersLength": "53",
+  "fitnessType": {
+    "length": "LENGTH",
+    "characters": "CHARACTERS"
+  },
+  "p5": {
+    "backgroundColor": "rgb(30, 30, 30)",
+    "textColor": "rgb(0, 255, 0)",
+    "textSize": 15,
+    "lineGap": 20,
+    "canvasHeight": 300,
+    "canvasWidth": 900
+  }
+}

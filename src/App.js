@@ -1,24 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, Route} from "react-router-dom";
+import {Switch} from "react-bootstrap";
+import Writer from "./writer/app/components/Writer";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Config from "./config";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Navbar.Brand href="#home">{Config.projectName}</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto">
+              {Config.apps.map((app) =>
+                <Nav.Link key={app.appName} href={app.appUrl}>{app.appName}</Nav.Link>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+
+        <Switch>
+          <Route path={"/writer"} component={Writer}/>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
