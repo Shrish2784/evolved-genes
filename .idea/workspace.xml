@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bdefbdae-2755-4dff-a599-b0a500b27581" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/writer/app/components/Writer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/writer/app/components/Writer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +73,7 @@
       <option name="presentableId" value="Default" />
       <updated>1585529019011</updated>
       <workItem from="1585529021695" duration="23590000" />
-      <workItem from="1585586127620" duration="14176000" />
+      <workItem from="1585586127620" duration="15162000" />
     </task>
     <servers />
   </component>
@@ -88,42 +89,42 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="689" y="270" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1585529610427" />
-    <state width="1897" height="306" key="GridCell.Tab.0.bottom" timestamp="1585681389770">
+    <state width="1897" height="306" key="GridCell.Tab.0.bottom" timestamp="1585694456318">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="306" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1585681389770" />
-    <state width="1897" height="306" key="GridCell.Tab.0.center" timestamp="1585681389770">
+    <state width="1897" height="306" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1585694456318" />
+    <state width="1897" height="306" key="GridCell.Tab.0.center" timestamp="1585694456318">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.center.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="306" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1585681389770" />
-    <state width="1897" height="306" key="GridCell.Tab.0.left" timestamp="1585681389770">
+    <state width="1897" height="306" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1585694456318" />
+    <state width="1897" height="306" key="GridCell.Tab.0.left" timestamp="1585694456317">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.left.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="306" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1585681389770" />
-    <state width="1897" height="306" key="GridCell.Tab.0.right" timestamp="1585681389770">
+    <state width="1897" height="306" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1585694456317" />
+    <state width="1897" height="306" key="GridCell.Tab.0.right" timestamp="1585694456318">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.right.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="306" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1585681389770" />
-    <state x="460" y="166" key="SettingsEditor" timestamp="1585538988856">
+    <state width="1897" height="306" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1585694456318" />
+    <state x="460" y="166" key="SettingsEditor" timestamp="1585694246477">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="460" y="166" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1585538988856" />
+    <state x="460" y="166" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1585694246477" />
     <state x="410" y="0" width="1084" height="1046" key="StructurePopup.inPresentationMode" timestamp="1585534757311">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -148,9 +149,9 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="616" y="243" key="run.anything.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585548105344" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1585548332044">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1585694319425">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585548332044" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585694319425" />
   </component>
 </project>

@@ -5,8 +5,8 @@ import Sketch from "../ga/Genetics";
 import P5Wrapper from "react-p5-wrapper";
 
 export default class Writer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       target: null,
       targetInputDisabled: false,
