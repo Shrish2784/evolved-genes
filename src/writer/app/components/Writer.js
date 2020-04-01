@@ -1,7 +1,6 @@
 import React from "react";
 import {Button, Container} from "react-bootstrap";
-import {Genetics} from "../ga/Genetics";
-import Sketch from "../ga/Genetics";
+import Sketch, {Genetics} from "../ga/Genetics";
 import P5Wrapper from "react-p5-wrapper";
 
 export default class Writer extends React.Component {
@@ -65,7 +64,7 @@ export default class Writer extends React.Component {
           <div className="pt-2 text-left">
             <ul>
               <li>Should not contain any Special Character.</li>
-              <li>Length shout be below 100.</li>
+              <li>Length should be below 100.</li>
             </ul>
           </div>
         </div>

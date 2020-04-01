@@ -5,25 +5,27 @@ import Writer from "./writer/app/components/Writer";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Config from "./config";
+import Rocket from "./rockets/app/components/Rocket";
 
 function App() {
   return (
     <div>
-      <BrowserRouter>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href="/">{Config.projectName}</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              {Config.apps.map((app) =>
-                <Nav.Link key={app.appName} href={app.appUrl}>{app.appName}</Nav.Link>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar.Brand href="/">{Config.projectName}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            {Object.entries(Config.apps).map(([key, val]) =>
+              <Nav.Link key={key} href={val.appUrl}>{val.appName}</Nav.Link>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
 
+      <BrowserRouter>
         <Switch>
-          <Route path={"/writer"} component={Writer}/>
+          <Route path={Config.apps.Writer.appUrl} component={Writer}/>
+          <Route path={Config.apps.Rockets.appUrl} component={Rocket}/>
         </Switch>
       </BrowserRouter>
     </div>

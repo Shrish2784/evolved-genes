@@ -10,6 +10,7 @@ export default function Sketch(p) {
   };
 
   p.draw = () => {
+    // eslint-disable-next-line no-unused-vars
     let step = 0;
     p.background(Config.p5.backgroundColor);
 

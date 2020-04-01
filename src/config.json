@@ -1,9 +1,13 @@
 {
   "projectName": "Evolved",
-  "apps": [
-    {
+  "apps": {
+    "Writer": {
       "appName": "Writer",
       "appUrl": "/writer"
+    },
+    "Rockets": {
+      "appName": "Rockets",
+      "appUrl": "/rockets"
     }
-  ]
+  }
 }
