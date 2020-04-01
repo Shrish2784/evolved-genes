@@ -3,8 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="9baf1820-4530-4f57-b5dc-9c8ee554ad89" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +40,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript" />
     <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -48,7 +53,12 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.3.4\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\shris\WebstormProjects\evolve\src" />
+      <recent name="C:\Users\shris\WebstormProjects\evolve\public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\shris\WebstormProjects\evolve\src" />
       <recent name="C:\Users\shris\WebstormProjects\evolve\src\rockets\app" />
     </key>
   </component>
@@ -87,6 +97,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="551" y="182" key="#Images" timestamp="1585755486197">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="551" y="182" key="#Images/0.0.1920.1050@0.0.1920.1050" timestamp="1585755486197" />
     <state x="726" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585703005523">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -99,6 +113,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="689" y="270" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1585745613463" />
+    <state x="739" y="265" key="FileChooserDialogImpl" timestamp="1585755484577">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="739" y="265" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1585755484577" />
     <state width="1897" height="306" key="GridCell.Tab.0.bottom" timestamp="1585705868953">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -155,10 +173,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="92" y="92" width="1736" height="866" key="dock-window-1/0.0.1920.1050@0.0.1920.1050" timestamp="1585590159748" />
-    <state x="656" y="123" width="607" height="804" key="find.popup" timestamp="1585725612904">
+    <state x="656" y="123" width="607" height="804" key="find.popup" timestamp="1585754418925">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="656" y="123" width="607" height="804" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585725612904" />
+    <state x="656" y="123" width="607" height="804" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585754418925" />
     <state x="616" y="243" key="run.anything.popup" timestamp="1585548105344">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

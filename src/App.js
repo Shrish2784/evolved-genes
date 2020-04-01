@@ -5,18 +5,21 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Config from "./config";
 import Rocket from "./rockets/app/components/Rocket";
+// import {Image} from "react-bootstrap";
+import logo from "./brand_logo.png";
 
 function App() {
   return (
     <div>
       <HashRouter>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href="/">{Config.projectName}</Navbar.Brand>
+          <Navbar.Brand href="/"><img className="navbar-brand" src={logo} alt={"Not Found"} height={"40px"}/>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto">
               {Object.entries(Config.apps).map(([key, val]) =>
-                <Nav.Item className="nav-link">
+                <Nav.Item key={key} className="nav-link">
                   <Link className="evolve-link" to={val.appUrl}>{val.appName}</Link>
                 </Nav.Item>
               )}
