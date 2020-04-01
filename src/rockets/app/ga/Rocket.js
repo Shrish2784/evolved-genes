@@ -10,6 +10,7 @@ export default class Rocket {
     this.accel = this.p.createVector();
     this.fitness = 0;
     this.fitnessRatio = 0;
+    this.isCrashed = false;
     this.dna = new DNA(makeDna);
   }
 
@@ -25,17 +26,22 @@ export default class Rocket {
   calibrateFitness = () => {
     let d = this.d;
 
-    //POSITIVE REINFORCEMENTS
-    if (d <= 1) this.fitness *= 1000;
-    else if (d <= 20) this.fitness *= 10;
-    else if (d <= 30) this.fitness *= 8;
-    else if (d <= 50) this.fitness *= 5;
-    else if (d <= 100) this.fitness *= 3;
-    //NEGATIVE REINFORCEMENTS
-    else if (d >= 500) this.fitness *= .2;
-    else if (d >= 400) this.fitness *= .5;
-    else if (d >= 300) this.fitness *= .7;
-    else if (d >= 200) this.fitness *= .8;
+    if (this.isCrashed) {
+      this.fitness *= 0.1;
+    } else {
+      //POSITIVE REINFORCEMENTS
+      if (d <= 1) this.fitness *= 1000;
+      else if (d <= 10) this.fitness *= 100;
+      else if (d <= 20) this.fitness *= 10;
+      else if (d <= 30) this.fitness *= 8;
+      else if (d <= 50) this.fitness *= 5;
+      else if (d <= 100) this.fitness *= 3;
+      //NEGATIVE REINFORCEMENTS
+      else if (d >= 500) this.fitness *= .2;
+      else if (d >= 400) this.fitness *= .5;
+      else if (d >= 300) this.fitness *= .7;
+      else if (d >= 200) this.fitness *= .8;
+    }
   };
 
   mutate = () => {
@@ -48,10 +54,20 @@ export default class Rocket {
   };
 
   update = () => {
-    this.velocity.add(this.accel);
-    this.position.add(this.velocity);
-    this.accel.mult(0);
-    this.velocity.limit(Config.velLimit);
+    if (!this.isCrashed) {
+      this.velocity.add(this.accel);
+      this.position.add(this.velocity);
+      this.accel.mult(0);
+      this.velocity.limit(Config.velLimit);
+    }
+  };
+
+  checkCrash = (obstacle) => {
+    let x = this.position.x;
+    let y = this.position.y;
+
+    if (x >= obstacle.x && x <= obstacle.x + obstacle.w && y >= obstacle.y && y <= obstacle.y + obstacle.h)
+      this.isCrashed = true;
   };
 
   show = (color = Config.p5.rocketColor, thrusterColor = Config.p5.thrusterColor) => {
@@ -70,6 +86,7 @@ export default class Rocket {
     this.p.ellipse(0, 0, rW, rH);
 
     //Thrusters
+    if (this.isCrashed) thrusterColor = Config.p5.crashedThrusterColor;
     this.p.stroke(thrusterColor);
     this.p.strokeWeight(Config.p5.thrusterWidth);
     this.p.line(-(rW / 2), -(rH / 2), -(rW / 2 + tH), -(rH / 2));

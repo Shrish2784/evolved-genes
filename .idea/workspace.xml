@@ -3,12 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9baf1820-4530-4f57-b5dc-9c8ee554ad89" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rockets/app/app_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/rockets/app/app_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rockets/app/ga/Population.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/rockets/app/ga/Population.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rockets/app/ga/Rocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/rockets/app/ga/Rocket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rockets/app/p5/sketch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/rockets/app/p5/sketch.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,12 +69,16 @@
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="start" />
+        <script value="startLocal" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.Debug Application" />
+      <item itemvalue="npm.npm start" />
+    </list>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -101,6 +104,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="551" y="182" key="#Images/0.0.1920.1050@0.0.1920.1050" timestamp="1585755486197" />
+    <state x="413" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585759872788">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="413" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1585759872788" />
     <state x="726" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585703005523">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -117,38 +124,38 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="739" y="265" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1585755484577" />
-    <state width="1897" height="306" key="GridCell.Tab.0.bottom" timestamp="1585705868953">
+    <state width="1897" height="517" key="GridCell.Tab.0.bottom" timestamp="1585759875303">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="306" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1585705868953" />
-    <state width="1897" height="306" key="GridCell.Tab.0.center" timestamp="1585705868953">
+    <state width="1897" height="517" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1585759875303" />
+    <state width="1897" height="517" key="GridCell.Tab.0.center" timestamp="1585759875303">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.center.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="306" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1585705868953" />
-    <state width="1897" height="306" key="GridCell.Tab.0.left" timestamp="1585705868953">
+    <state width="1897" height="517" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1585759875303" />
+    <state width="1897" height="517" key="GridCell.Tab.0.left" timestamp="1585759875303">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.left.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="306" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1585705868953" />
-    <state width="1897" height="306" key="GridCell.Tab.0.right" timestamp="1585705868953">
+    <state width="1897" height="517" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1585759875303" />
+    <state width="1897" height="517" key="GridCell.Tab.0.right" timestamp="1585759875303">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.right.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="306" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1585705868953" />
+    <state width="1897" height="517" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1585759875303" />
     <state x="773" y="234" key="RollbackChangesDialog" timestamp="1585696156228">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -173,17 +180,17 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="92" y="92" width="1736" height="866" key="dock-window-1/0.0.1920.1050@0.0.1920.1050" timestamp="1585590159748" />
-    <state x="656" y="123" width="607" height="804" key="find.popup" timestamp="1585754418925">
+    <state x="656" y="123" width="607" height="804" key="find.popup" timestamp="1585761307291">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="656" y="123" width="607" height="804" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585754418925" />
+    <state x="656" y="123" width="607" height="804" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585761307291" />
     <state x="616" y="243" key="run.anything.popup" timestamp="1585548105344">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="616" y="243" key="run.anything.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585548105344" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1585739153952">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1585760716255">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585739153952" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585760716255" />
   </component>
 </project>

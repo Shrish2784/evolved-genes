@@ -1,11 +1,13 @@
 import Config from "../app_config";
 import Population from "../ga/Population";
+import Obstacle from "./Obstacle";
 
 export default function Sketch(p) {
   let isGoalSet = false;
   let goalX;
   let goalY;
   let population;
+  let obstacle;
   let lifespan;
   let generation;
   let bestFit;
@@ -19,18 +21,22 @@ export default function Sketch(p) {
     generation = p.createP();
     bestFit = p.createP();
 
-    goalX = Math.floor(Math.random() * Config.p5.canvasWidth);
-    goalY = Math.floor(Math.random() * Config.p5.canvasWidth);
+    obstacle = new Obstacle(p, Config.p5.obstacle.x, Config.p5.obstacle.y, Config.p5.obstacle.w, Config.p5.obstacle.h);
+    // goalX = Math.floor(Math.random() * Config.p5.canvasWidth);
+    // goalY = Math.floor(Math.random() * Config.p5.canvasWidth);
+    goalX = Config.p5.goal.x;
+    goalY = Config.p5.goal.y;
     isGoalSet = true;
-    population = new Population(p, goalX, goalY);
+    population = new Population(p, goalX, goalY, obstacle);
   };
 
   p.draw = () => {
     p.background(Config.p5.background);
+    obstacle.show();
 
     if (isGoalSet) {
       p.fill(Config.p5.goalColor);
-      p.noStroke();
+      // p.noStroke();
       p.ellipse(goalX, goalY, Config.goalRadius, Config.goalRadius);
       population.showRockets(count);
       count += 1;

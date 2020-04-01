@@ -10,13 +10,25 @@
     "bestRocketColor": "rgba(255, 100,100, 0.8)",
     "betterRocketColor": "rgba(255, 100,100, 0.5)",
     "goodRocketColor": "rgba(255, 100,100, 0.3)",
-    "prevRocketThrusterColor": "rgba(255, 20,20 ,0.5)",
+    "prevRocketThrusterColor": "rgba(20, 255, 20 ,0.2)",
     "thrusterHeight": 5,
-    "thrusterColor": "rgba(255, 20, 20, 0.7)",
-    "thrusterWidth": 5
+    "thrusterColor": "rgba(20, 255, 20, 0.7)",
+    "crashedThrusterColor": "rgba(255, 20, 20, 0.7)",
+    "thrusterWidth": 5,
+    "obstacle": {
+      "x": 150,
+      "w": 200,
+      "y": 240,
+      "h": 20,
+      "color": "rgba(0, 0, 0, 1)"
+    },
+    "goal" : {
+      "x": 250,
+      "y": 50
+    }
   },
-  "popSize": 100,
-  "mutationRate": 0.4,
+  "popSize": 25,
+  "mutationRate": 0.2,
   "lifespan": 300,
   "goalRadius": 20,
   "maxForce": 0.2,

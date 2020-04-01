@@ -2,8 +2,9 @@ import Config from "../app_config";
 import Rocket from "./Rocket";
 
 export default class Population {
-  constructor(p5, goalX, goalY) {
+  constructor(p5, goalX, goalY, obstacle) {
     this.p = p5;
+    this.obstacle = obstacle;
     this.goalX = goalX;
     this.goalY = goalY;
     this.rockets = [];
@@ -30,8 +31,10 @@ export default class Population {
     this.rockets.forEach((rocket) => {
       rocket.applyForce(count);
       rocket.update();
+      rocket.checkCrash(this.obstacle);
       rocket.show();
     });
+
     if (this.mostFit.bestFit)
       this.mostFit.bestFit.show(Config.p5.bestRocketColor, Config.p5.prevRocketThrusterColor);
     if (this.mostFit.betterFit)
