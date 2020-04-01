@@ -17,3 +17,14 @@ code {
     outline: none;
     border-bottom: 2px #343A40 solid;
 }
+
+.evolve-link {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.evolve-link:hover {
+    text-decoration: none;
+    color: #fff;
+}
