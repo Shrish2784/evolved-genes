@@ -22,8 +22,6 @@ export default function Sketch(p) {
     bestFit = p.createP();
 
     obstacle = new Obstacle(p, Config.p5.obstacle.x, Config.p5.obstacle.y, Config.p5.obstacle.w, Config.p5.obstacle.h);
-    // goalX = Math.floor(Math.random() * Config.p5.canvasWidth);
-    // goalY = Math.floor(Math.random() * Config.p5.canvasWidth);
     goalX = Config.p5.goal.x;
     goalY = Config.p5.goal.y;
     isGoalSet = true;
@@ -36,7 +34,6 @@ export default function Sketch(p) {
 
     if (isGoalSet) {
       p.fill(Config.p5.goalColor);
-      // p.noStroke();
       p.ellipse(goalX, goalY, Config.goalRadius, Config.goalRadius);
       population.showRockets(count);
       count += 1;

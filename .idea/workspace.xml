@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9baf1820-4530-4f57-b5dc-9c8ee554ad89" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rockets/app/app_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/rockets/app/app_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rockets/app/ga/Population.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/rockets/app/ga/Population.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rockets/app/ga/Rocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/rockets/app/ga/Rocket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rockets/app/p5/sketch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/rockets/app/p5/sketch.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +48,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.3.4\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -104,14 +104,14 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="551" y="182" key="#Images/0.0.1920.1050@0.0.1920.1050" timestamp="1585755486197" />
-    <state x="413" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585759872788">
+    <state x="413" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585855400484">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="413" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1585759872788" />
-    <state x="726" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585703005523">
+    <state x="413" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1585855400484" />
+    <state x="726" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585858074601">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="726" y="326" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1585703005523" />
+    <state x="726" y="326" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1585858074601" />
     <state x="764" y="239" key="#com.intellij.ide.util.MemberChooser" timestamp="1585534978063">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -124,46 +124,46 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="739" y="265" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1585755484577" />
-    <state width="1897" height="517" key="GridCell.Tab.0.bottom" timestamp="1585759875303">
+    <state width="1897" height="264" key="GridCell.Tab.0.bottom" timestamp="1585839709904">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.bottom.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="517" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1585759875303" />
-    <state width="1897" height="517" key="GridCell.Tab.0.center" timestamp="1585759875303">
+    <state width="1897" height="264" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1585839709904" />
+    <state width="1897" height="264" key="GridCell.Tab.0.center" timestamp="1585839709904">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.center.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="517" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1585759875303" />
-    <state width="1897" height="517" key="GridCell.Tab.0.left" timestamp="1585759875303">
+    <state width="1897" height="264" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1585839709904" />
+    <state width="1897" height="264" key="GridCell.Tab.0.left" timestamp="1585839709904">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.left.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="517" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1585759875303" />
-    <state width="1897" height="517" key="GridCell.Tab.0.right" timestamp="1585759875303">
+    <state width="1897" height="264" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1585839709904" />
+    <state width="1897" height="264" key="GridCell.Tab.0.right" timestamp="1585839709904">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1585534787587">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1919" height="58" key="GridCell.Tab.0.right.inPresentationMode/0.0.1920.1050@0.0.1920.1050" timestamp="1585534787587" />
-    <state width="1897" height="517" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1585759875303" />
+    <state width="1897" height="264" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1585839709904" />
     <state x="773" y="234" key="RollbackChangesDialog" timestamp="1585696156228">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="773" y="234" key="RollbackChangesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1585696156228" />
-    <state x="28" y="134" key="SettingsEditor" timestamp="1585695910196">
+    <state x="28" y="134" key="SettingsEditor" timestamp="1585849011455">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="28" y="134" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1585695910196" />
+    <state x="28" y="134" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1585849011455" />
     <state x="410" y="0" width="1084" height="1046" key="StructurePopup.inPresentationMode" timestamp="1585534757311">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -180,17 +180,17 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="92" y="92" width="1736" height="866" key="dock-window-1/0.0.1920.1050@0.0.1920.1050" timestamp="1585590159748" />
-    <state x="656" y="123" width="607" height="804" key="find.popup" timestamp="1585761307291">
+    <state x="656" y="123" width="607" height="804" key="find.popup" timestamp="1585865036147">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="656" y="123" width="607" height="804" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585761307291" />
+    <state x="656" y="123" width="607" height="804" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585865036147" />
     <state x="616" y="243" key="run.anything.popup" timestamp="1585548105344">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="616" y="243" key="run.anything.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585548105344" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1585760716255">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1585864654115">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585760716255" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585864654115" />
   </component>
 </project>

@@ -1,0 +1,34 @@
+{
+  "popSize": 25,
+  "mutationRate": 0.2,
+  "gravity": 0.6,
+  "flap": 18,
+  "resist": 0.9,
+  "speed": 3,
+  "frames": 90,
+  "p5": {
+    "canvasWidth": 700,
+    "canvasHeight": 600,
+    "background": 200,
+    "flupper": {
+      "x": 40,
+      "y": 300,
+      "color": "rgba(255, 255, 0, 0.4)",
+      "deadColor": "rgba(255, 0, 0, 0.4)",
+      "width": 20,
+      "height": 20
+    },
+    "pipe": {
+      "x": 650,
+      "color": "rgba(20, 255, 20, 0.4)",
+      "behindFlupperColor": "rgba(255, 20, 20, 0.4)",
+      "width": 50,
+      "minGap": 0.4
+    }
+  },
+  "nn": {
+    "inputNodes": 4,
+    "hiddenNodes": 3,
+    "outputNodes": 1
+  }
+}

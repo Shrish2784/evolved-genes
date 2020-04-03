@@ -8,6 +8,10 @@
     "Rockets": {
       "appName": "Rockets",
       "appUrl": "/rockets"
+    },
+    "Flupper": {
+      "appName": "Flupper",
+      "appUrl": "/flupper"
     }
   }
 }
