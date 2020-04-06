@@ -19,6 +19,8 @@ export default class Bot {
     //GA
     this.numOfMoves = 0;
     this.clearedRowsCount = 0;
+    this.fitness = 0;
+    this.fitnessRatio = null;
   }
 
   //==============================GAME===============================
@@ -29,7 +31,7 @@ export default class Bot {
     this.params.push(Math.random());
   };
 
-  decide = (currentTetrimino, nextTetrimino, grid = this.grid) => {
+  decide = (currentTetrimino, nextTetrimino, grid = this.grid, params) => {
     const currentTetriminoShapes = currentTetrimino.tetrimino.shapes;
 
     let bestScore = -Infinity;
@@ -56,7 +58,7 @@ export default class Bot {
 
             // NEXT MOVE
             if (nextTetrimino) {
-              const nextData = this.play(nextTetrimino, null, currentGrid);
+              const nextData = this.decide(nextTetrimino, null, currentGrid);
               if (nextData.score > -Infinity) nextGrid = nextData.grid;
             }
 
@@ -66,7 +68,7 @@ export default class Bot {
             score = (nextHeuristics) ? this.calcScore(nextHeuristics) : this.calcScore(heuristics);
           }
 
-          if (score > bestScore) {
+          if (score >= bestScore) {
             bestScore = score;
             bestShapeIndex = shapeIndex;
             jIndex = j;
@@ -80,7 +82,6 @@ export default class Bot {
     if (nextTetrimino) {
       if (bestScore === -Infinity) {
         this.isDead = true;
-        console.log("dead");
       } else {
         this.numOfMoves += 1;
         this.score = bestScore;
@@ -88,8 +89,6 @@ export default class Bot {
         this.jIndex = jIndex;
       }
     }
-
-    if (this.isDead) console.log(this);
 
     return data;
   };
@@ -104,19 +103,19 @@ export default class Bot {
     return isDone;
   };
 
-  calcScore = (heuristics) => {
+  calcScore = (heuristics, params) => {
     return (0 -
-      (this.params[0] * heuristics.aggHeight) +
-      (this.params[1] * heuristics.clearedRows) -
-      (this.params[2] * heuristics.holes) -
-      (this.params[3] * heuristics.bumps)
+      (params[0] * heuristics.aggHeight) +
+      (params[1] * heuristics.clearedRows) -
+      (params[2] * heuristics.holes) -
+      (params[3] * heuristics.bumps)
     );
   };
 
 
 //===============================GA================================
   calcFitness = () => {
-    this.fitness = 10 * this.clearedRowsCount + this.numOfMoves;
+    this.fitness = this.clearedRowsCount;
   };
 
 //===============================P5================================

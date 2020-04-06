@@ -1,3 +1,5 @@
+import Tetrimino from "./component/objects/Tetrimino";
+
 export const numOfTypesOfTertrimino = 7;
 
 export const getTetriType = {
@@ -142,3 +144,5 @@ export const tetriminoes = {
     ]
   }
 };
+
+export const getNewTetrimino = () => new Tetrimino(Math.floor(Math.random() * 7));

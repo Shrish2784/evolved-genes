@@ -1,5 +1,6 @@
 {
-  "popSize": 1,
+  "popSize": 10,
+  "mutationRate": 0.3,
   "p5": {
     "canvasHeight": 400,
     "canvasWidth": 200,

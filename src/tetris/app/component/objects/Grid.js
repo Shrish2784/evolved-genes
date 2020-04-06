@@ -13,7 +13,6 @@ export default class Grid {
   static applySlot = (slots, jIndex, grid, i) => {
     slots.forEach(slot => {
       grid.matrix[i + slot[0]][jIndex + slot[1]].isFilled = true;
-      if (jIndex + slot[1] === 9) console.log("9");
       grid.heights[jIndex + slot[1]] = Math.max(Config.grid.rows - (i + slot[0]), grid.heights[jIndex + slot[1]]);
     });
   };
@@ -132,7 +131,6 @@ export default class Grid {
 
   play = (tetrimino = null, shapeIndex = null, jIndex = null) => {
     if (tetrimino != null && shapeIndex != null && jIndex != null) {
-      console.log(tetrimino, shapeIndex);
       let slots = tetrimino.tetrimino.shapes[shapeIndex].slots;
       if (!Grid.isIndexPossible(slots, jIndex, this, tetrimino.i)) {
         Grid.applySlot(slots, jIndex, this, tetrimino.i - 1);
