@@ -8,6 +8,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Config from "./config";
 import logo from "./brand_logo.png";
+import Tetris from "./tetris/app/component/Tetris";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path={Config.apps.Writer.appUrl} component={Writer}/>
           <Route path={Config.apps.Rockets.appUrl} component={Rocket}/>
           <Route path={Config.apps.Flupper.appUrl} component={Flupper}/>
+          <Route path={Config.apps.Tetris.appUrl} component={Tetris}/>
         </div>
       </HashRouter>
     </div>

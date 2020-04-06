@@ -9,7 +9,7 @@
   "p5": {
     "canvasWidth": 700,
     "canvasHeight": 600,
-    "background": 200,
+    "background": 220,
     "flupper": {
       "x": 40,
       "y": 300,

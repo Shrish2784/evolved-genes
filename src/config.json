@@ -12,6 +12,10 @@
     "Flupper": {
       "appName": "Flupper",
       "appUrl": "/flupper"
+    },
+    "Tetris": {
+      "appName": "Tetris",
+      "appUrl": "/tetris"
     }
   }
 }
