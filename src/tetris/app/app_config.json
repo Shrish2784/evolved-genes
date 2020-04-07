@@ -1,9 +1,9 @@
 {
-  "popSize": 100,
-  "tournamentSize": 0.1,
-  "selectionSize": 0.3,
+  "popSize": 60,
+  "tournamentSize": 0.2,
+  "selectionSize": 0.4,
   "mutationRate": 0.05,
-  "gamesPerVector": 20,
+  "gamesPerVector": 25,
   "movesPerGame": 500,
   "p5": {
     "canvasHeight": 400,

@@ -9,6 +9,10 @@ export default class DNA {
     this.fitnessRatio = 0;
   }
 
+  /**
+   * Generates String of random characters which participate in the GA.
+   * @returns {string}
+   */
   makeDna = () => {
     let result = '';
     for (let i = 0; i < this.length; i++)
@@ -16,6 +20,9 @@ export default class DNA {
     return result;
   };
 
+  /**
+   * Changes a random character in the DNA if mutation does happen.
+   */
   mutate = () => {
     if (Math.random() <= Config.mutationRate) {
       let point = (Math.random() * this.target.length);
@@ -25,6 +32,12 @@ export default class DNA {
     }
   };
 
+  /**
+   * Fitness function for the DNA.
+   * The number of characters which match the Target's string
+   * become the Fitness of the dna.
+   * @returns {number}
+   */
   calculateFitness = () => {
     let fit = 0;
     for (let i = 0; i < this.length; i++) {

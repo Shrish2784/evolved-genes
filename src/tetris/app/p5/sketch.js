@@ -117,6 +117,7 @@ export default function Sketch(p) {
 
       if (population.areAllVectorsPlayed) {
         population.nextGeneration();
+        localStorage.setItem("bestVector", population.bestVector);
         genInfo.html("Current Generation: " + population.generation);
         bestFitInfo.html("Lines cleared this generation: " + population.bestFitness);
       } else {
@@ -140,7 +141,7 @@ export default function Sketch(p) {
             bot.play(tetriminos);
             tetriminos.current.i += 1;
           }
-          bot.show(tetriminos.current);
+          // bot.show(tetriminos.current);
         } else {
           /**
            * If the bot has died or the moves per game have been reached
