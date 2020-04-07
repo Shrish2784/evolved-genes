@@ -4,11 +4,27 @@ import Rocket from "./Rocket";
 export default class Population {
   constructor(p5, goalX, goalY, obstacle) {
     this.p = p5;
+    /**
+     * Obstacle to avoid.
+     */
     this.obstacle = obstacle;
+
+    /**
+     * Goal coordinates
+     */
     this.goalX = goalX;
     this.goalY = goalY;
+
+    /**
+     * All the rockets.
+     * @type {*[]}
+     */
     this.rockets = [];
     this.matingPool = [];
+
+    /**
+     * Fit rockets.
+     */
     this.bestFit = 0;
     this.betterFit = 0;
     this.goodFit = 0;
@@ -21,12 +37,19 @@ export default class Population {
     this.initRockets();
   }
 
+  /**
+   * Initialize all the rockets.
+   */
   initRockets = () => {
     for (let i = 0; i < Config.popSize; i++) {
       this.rockets.push(new Rocket(this.p, i + 1));
     }
   };
 
+  /**
+   * Display all the rockets on the Canvas.
+   * @param count
+   */
   showRockets = (count) => {
     this.rockets.forEach((rocket) => {
       rocket.applyForce(count);
@@ -35,6 +58,9 @@ export default class Population {
       rocket.show();
     });
 
+    /**
+     * Display the most fit rockets.
+     */
     if (this.mostFit.bestFit)
       this.mostFit.bestFit.show(Config.p5.bestRocketColor, Config.p5.prevRocketThrusterColor);
     if (this.mostFit.betterFit)
@@ -44,6 +70,9 @@ export default class Population {
 
   };
 
+  /**
+   * Genetic Algorithm.
+   */
   evolve = () => {
     this.calcFitness();
     this.setFitnessRatio();
@@ -51,6 +80,10 @@ export default class Population {
     this.nextGeneration();
   };
 
+  /**
+   * Calculating Fitness of all rockets.
+   * Also finding the best three rockets.
+   */
   calcFitness = () => {
     this.bestFit = 0;
     this.betterFit = 0;
@@ -59,20 +92,38 @@ export default class Population {
     this.rockets.forEach(rocket => {
       let fit = rocket.calcFitness(this.goalX, this.goalY);
       if (fit > this.bestFit) {
-        this.bestFit = fit;
+        this.mostFit.goodFit = this.mostFit.betterFit;
+        this.goodFit = this.betterFit;
+
+        this.mostFit.betterFit = this.mostFit.bestFit;
+        this.betterFit = this.bestFit;
+
         this.mostFit.bestFit = rocket;
+        this.bestFit = fit;
+
       } else if (fit > this.betterFit) {
-        this.betterFit = fit;
+        this.mostFit.goodFit = this.mostFit.betterFit;
+        this.goodFit = this.betterFit;
+
         this.mostFit.betterFit = rocket;
+        this.betterFit = fit;
+
       } else if (fit > this.goodFit) {
-        this.goodFit = fit;
         this.mostFit.goodFit = rocket;
+        this.goodFit = fit;
       }
     });
   };
 
+  /**
+   * Normalize Fitness Scores.
+   */
   setFitnessRatio = () => this.rockets.forEach(rocket => rocket.fitnessRatio = rocket.fitness / this.bestFit);
 
+
+  /**
+   * Mating Pool for selection.
+   */
   generateMatingPool = () => {
     this.rockets.forEach(rocket => {
       let n = rocket.fitnessRatio * 500;
@@ -82,6 +133,9 @@ export default class Population {
     })
   };
 
+  /**
+   * Generate new Rockets.
+   */
   nextGeneration = () => {
     let rockets = [];
     for (let i = 0; i < Config.popSize; i++) rockets.push(this.crossover(this.selection(), this.selection(), i));
@@ -89,8 +143,19 @@ export default class Population {
     this.generation += 1;
   };
 
+  /**
+   * Rank based Selection.
+   * @returns {number | Number | *}
+   */
   selection = () => this.p.random(this.matingPool);
 
+  /**
+   * Random point Crossover.
+   * @param rocket1
+   * @param rocket2
+   * @param id
+   * @returns {Rocket}
+   */
   crossover = (rocket1, rocket2, id) => {
     let rocket = new Rocket(this.p, id, false);
     let point = Math.floor(Math.random() * Config.lifespan);

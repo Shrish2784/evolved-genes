@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: Helvetica, sans-serif;
+    padding-top: 70px;
 }
 
 code {
@@ -30,7 +31,7 @@ code {
 }
 
 .navs:hover {
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .active {
@@ -52,5 +53,20 @@ code {
 
 .evolve-link:hover {
     text-decoration: none;
+    color: #fff;
+}
+
+.p5-button {
+    padding: 8px 20px;
+    border: 1px #343A40 solid;
+    border-radius: 10px;
+    background: #fff;
+    color: #343A40;
+    display: block;
+    margin: auto;
+}
+
+.p5-button:hover {
+    background: #343A40;
     color: #fff;
 }

@@ -9,6 +9,9 @@ export default class Obstacle {
     this.h = h;
   }
 
+  /**
+   * Display obstacle.
+   */
   show = () => {
     this.p.stroke(Config.p5.obstacle.color);
     this.p.fill(Config.p5.obstacle.color);

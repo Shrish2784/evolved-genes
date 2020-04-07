@@ -14,6 +14,14 @@ export default class Rocket {
     this.dna = new DNA(makeDna);
   }
 
+  /**
+   * Fitness Function of the Rocket.
+   *
+   * The closer is the Rocket to the Goal, the higher fitness it has.
+   * @param goalX
+   * @param goalY
+   * @returns {number}
+   */
   calcFitness = (goalX, goalY) => {
     let d = this.p.dist(this.position.x, this.position.y, goalX, goalY);
     let max = Config.p5.canvasWidth;
@@ -23,6 +31,9 @@ export default class Rocket {
     return this.fitness;
   };
 
+  /**
+   * Further Reinforcements for the Rockets.
+   */
   calibrateFitness = () => {
     let d = this.d;
 
@@ -44,15 +55,25 @@ export default class Rocket {
     }
   };
 
+  /**
+   * Mutation involves randomly changing a thruster.
+   */
   mutate = () => {
     if (Math.random() <= Config.mutationRate)
       this.dna.forces[Math.floor(Math.random() * Config.lifespan)] = Vector.random2D().setMag(Config.maxForce);
   };
 
+  /**
+   * Thruster's force is applied to the Acceleration of the Rocket.
+   * @param count
+   */
   applyForce = (count) => {
     this.accel.add(this.dna.forces[count]);
   };
 
+  /**
+   * Simple Physics to alter the Rocket.
+   */
   update = () => {
     if (!this.isCrashed) {
       this.velocity.add(this.accel);
@@ -62,6 +83,12 @@ export default class Rocket {
     }
   };
 
+  /**
+   * Mark the Rocket as crashed if it has come in contact with
+   * the obstacle.
+   *
+   * @param obstacle
+   */
   checkCrash = (obstacle) => {
     let x = this.position.x;
     let y = this.position.y;
@@ -70,6 +97,12 @@ export default class Rocket {
       this.isCrashed = true;
   };
 
+  /**
+   * Show the Rocket on the Canvas.
+   *
+   * @param color
+   * @param thrusterColor
+   */
   show = (color = Config.p5.rocketColor, thrusterColor = Config.p5.thrusterColor) => {
     let rW = Config.p5.rocketWidth;
     let rH = Config.p5.rocketHeight;

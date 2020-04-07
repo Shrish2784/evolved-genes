@@ -20,7 +20,7 @@ function App() {
   return (
     <div>
       <HashRouter>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="fixed-top">
           <Navbar.Brand href="/"><img className="navbar-brand" src={logo} alt={"Not Found"} height={"40px"}/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav"/>

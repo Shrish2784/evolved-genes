@@ -7,6 +7,9 @@ export default class DNA {
     if (makeDna) this.initForces();
   }
 
+  /**
+   * Dna is a series of thrusters on the Rockets.
+   */
   initForces = () => {
     for (let i = 0; i < Config.lifespan; i++) this.forces.push(Vector.random2D().setMag(Config.maxForce));
   }
