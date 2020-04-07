@@ -24,6 +24,32 @@ code {
     cursor: pointer;
 }
 
+.navs {
+    border-radius: 20px;
+    transition: all 0.5s ease;
+}
+
+.navs:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+.active {
+    background: white;
+}
+
+.active:hover {
+    background: white;
+}
+
+.active * {
+    color: #343A40;
+}
+
+.active a:hover {
+    color: #343A40;
+}
+
+
 .evolve-link:hover {
     text-decoration: none;
     color: #fff;

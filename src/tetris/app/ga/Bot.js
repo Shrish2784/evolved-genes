@@ -3,123 +3,111 @@ import Config from "../app_config";
 
 export default class Bot {
   constructor(p) {
-    //P5
     this.p = p;
     this.grid = new Grid(p);
     this.isDead = false;
-
-    //Game
-    this.params = [];
-    this.score = null;
-    this.shapeIndex = null;
-    this.jIndex = null;
-    this.heuristics = null;
-    this.initParams();
-
-    //GA
-    this.numOfMoves = 0;
-    this.clearedRowsCount = 0;
-    this.fitness = 0;
-    this.fitnessRatio = null;
+    this.numOfLinesCleared = 0;
   }
 
-  //==============================GAME===============================
-  initParams = () => {
-    this.params.push(Math.random());
-    this.params.push(Math.random());
-    this.params.push(Math.random());
-    this.params.push(Math.random());
+  reset = () => {
+    this.grid.init(false);
+    this.isDead = false;
+    this.numOfLinesCleared = 0;
   };
 
-  decide = (currentTetrimino, nextTetrimino, grid = this.grid, params) => {
+  decide = (tetriminos, vector, grid = this.grid) => {
+    const currentTetrimino = tetriminos.current;
+    const nextTetrimino = tetriminos.next;
     const currentTetriminoShapes = currentTetrimino.tetrimino.shapes;
 
     let bestScore = -Infinity;
-    let bestShapeIndex = null;
-    let jIndex = null;
+    let bestShape = null;
+    let bestJIndex = null;
 
     let data = {
       grid: null,
       score: null,
     };
 
-    currentTetriminoShapes.forEach((shape, shapeIndex) => {
-        const shapeWidth = shape.width;
-        let currentGrid = null;
-        let heuristics = null;
-        let nextGrid = null;
-        let nextHeuristics = null;
+    currentTetriminoShapes.forEach((shape) => {
+      const shapeWidth = shape.width;
 
-        for (let j = 0; j <= Config.grid.cols - shapeWidth; j++) {
-          let score = -Infinity;
+      let currentGrid = null;
+      let heuristics = null;
+      let nextGrid = null;
+      let nextHeuristics = null;
 
-          currentGrid = grid.clone();
-          if (Grid.apply(shape, j, currentGrid)) {
+      for (let j = 0; j <= Config.grid.cols - shapeWidth; j++) {
+        let score = -Infinity;
 
-            // NEXT MOVE
-            if (nextTetrimino) {
-              const nextData = this.decide(nextTetrimino, null, currentGrid);
-              if (nextData.score > -Infinity) nextGrid = nextData.grid;
-            }
+        currentGrid = grid.clone();
+        if (Grid.apply(shape, j, currentGrid)) {
+
+          // NEXT MOVE
+          if (nextTetrimino) {
+            const nextData = this.decide({current: nextTetrimino, next: null}, vector, currentGrid);
+            if (nextData.score > -Infinity) nextGrid = nextData.grid;
 
             if (nextGrid) nextHeuristics = nextGrid.compute();
             else heuristics = currentGrid.compute();
 
-            score = (nextHeuristics) ? this.calcScore(nextHeuristics) : this.calcScore(heuristics);
+            score = (nextHeuristics) ? this._calcScore(nextHeuristics, vector) : this._calcScore(heuristics, vector);
           }
 
-          if (score >= bestScore) {
+          if (score > bestScore) {
             bestScore = score;
-            bestShapeIndex = shapeIndex;
-            jIndex = j;
+            bestShape = shape;
+            bestJIndex = j;
             data.grid = currentGrid;
             data.score = score;
           }
         }
       }
-    );
+    });
 
     if (nextTetrimino) {
       if (bestScore === -Infinity) {
         this.isDead = true;
       } else {
-        this.numOfMoves += 1;
-        this.score = bestScore;
-        this.shapeIndex = bestShapeIndex;
-        this.jIndex = jIndex;
+        currentTetrimino.hasBeenDecidedOn = true;
+        currentTetrimino.decidedShape = bestShape;
+        currentTetrimino.decidedJIndex = bestJIndex;
       }
     }
 
     return data;
   };
 
-  play = (tetrimino) => {
-    let isDone = this.grid.play(tetrimino, this.shapeIndex, this.jIndex);
-    if (isDone) {
-      this.heuristics = this.grid.compute();
-      this.clearedRowsCount += this.heuristics.clearedRows;
-      this.calcFitness();
-    }
-    return isDone;
-  };
-
-  calcScore = (heuristics, params) => {
+  _calcScore = (heuristics, vector) => {
     return (0 -
-      (params[0] * heuristics.aggHeight) +
-      (params[1] * heuristics.clearedRows) -
-      (params[2] * heuristics.holes) -
-      (params[3] * heuristics.bumps)
+      (vector[0] * heuristics.aggHeight) +
+      (vector[1] * heuristics.clearedRows) -
+      (vector[2] * heuristics.holes) -
+      (vector[3] * heuristics.bumps)
     );
   };
 
-
-//===============================GA================================
-  calcFitness = () => {
-    this.fitness = this.clearedRowsCount;
+  play = (tetrimino) => {
+    if (!this.isDead) {
+      this.grid.play(tetrimino.current);
+      if (tetrimino.current.hasBeenPlayed) {
+        let heuristics = this.grid.compute();
+        this.numOfLinesCleared += heuristics.clearedRows;
+      }
+    }
   };
 
-//===============================P5================================
   show = (tetrimino) => {
-    this.grid.show(tetrimino, this.shapeIndex, this.jIndex);
+    this.grid.show(tetrimino);
   }
-}
+};
+
+
+//===============================GA================================
+//   calcFitness = () => {
+//     this.fitness = this.clearedRowsCount;
+//   };
+
+//===============================P5================================
+
+// }

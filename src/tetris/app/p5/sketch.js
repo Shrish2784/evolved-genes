@@ -1,139 +1,157 @@
 import Config from "../app_config";
 import Bot from "../ga/Bot";
-import {getNewTetrimino} from "../helper";
+import Population from "../ga/Population";
+import Game from "../ga/Game";
 
 export default function Sketch(p) {
-  let bots = [];
-  let currentTetrimino;
-  let nextTetrimino;
-  let areAllBotsDead = false;
-  let bestBotIndex = 0;
-  let maxFitness = 0;
-  let generation = 0;
-  let bestBot = null;
+  let population;
+  let bot;
+  let game;
+  let tetriminos = null;
+  let speedSlider = null;
 
-  let botNumP;
-  let genP;
-  let fitnessP;
-  let paramsP;
+  /**
+   * Fixed info, i.e, Once set need not to update.
+   */
+  let infoDiv = null;
+  let popSizeInfo = null;
+  let mutRateInfo = null;
+  let gamesPerVectorInfo = null;
+  let movesPerGameInfo = null;
 
-  //==================================================GA==========================================================
-  let calcFitnessRatio = () => {
-    let maxFit = 0;
-    console.log("=========================================");
-    bots.forEach(bot => {
-      if (bot.fitness > maxFit) {
-        maxFit = bot.fitness;
-        bestBot = bot;
-      }
-      console.log(bot.fitness);
-    });
-    console.log("=========================================");
-    bots.forEach(bot => bot.fitnessRatio = bot.fitness / maxFit);
+  /**
+   * Variable info, updated every draw cycle.
+   */
+  let genInfo = null;
+  let currentVectorInfo = null;
+  let currentVectorIndex = null;
+  let currentGameInfo = null;
+  let currentMoveInfo = null;
+  let bestFitInfo = null;
+
+  let trainButton = null;
+  let playing = false;
+
+  /**
+   *  Create paragraph DOM elements for rendering details of the GA.
+   */
+  let setInfo = () => {
+    popSizeInfo = p.createP("Population Size: " + Config.popSize);
+    mutRateInfo = p.createP("Mutation rate: " + Config.mutationRate);
+    gamesPerVectorInfo = p.createP("Games per vector: " + Config.gamesPerVector);
+    movesPerGameInfo = p.createP("Moves per game: " + Config.movesPerGame);
+
+    genInfo = p.createP("Current Generation: " + 0);
+    currentVectorInfo = p.createP();
+    currentVectorIndex = p.createP("Current vector index: " + 0);
+    currentGameInfo = p.createP("Current Game: " + 0);
+    currentMoveInfo = p.createP("Current move: " + 0);
+    bestFitInfo = p.createP();
+
+    infoDiv.child(popSizeInfo);
+    infoDiv.child(mutRateInfo);
+    infoDiv.child(gamesPerVectorInfo);
+    infoDiv.child(movesPerGameInfo);
+    infoDiv.child(genInfo);
+    infoDiv.child(currentVectorInfo);
+    infoDiv.child(currentVectorIndex);
+    infoDiv.child(currentGameInfo);
+    infoDiv.child(currentMoveInfo);
+    infoDiv.child(bestFitInfo);
   };
 
-  let generateMatingPool = () => {
-    let pool = [];
-    bots.forEach(bot => {
-      for (let i = 0; i < (bot.fitnessRatio * 100); i++) pool.push(bot);
-    });
-    return pool;
-  };
-
-  let crossOver = (bot1, bot2) => {
-    let bot = new Bot(p);
-
-    let sum = 0;
-    for (let i = 0; i < 4; i++) {
-      bot1.params[i] *= bot1.fitness;
-      bot2.params[i] *= bot2.fitness;
-      bot.params[i] = bot1.params[i] + bot2.params[i];
-      sum += (bot.params[i] * bot.params[i]);
+  /**
+   * Training Pause/Play facility.
+   */
+  let play = () => {
+    if (playing) {
+      p.noLoop();
+      playing = false;
+      trainButton.html("Resume");
+    } else {
+      playing = true;
+      p.draw = draw;
+      p.loop();
+      trainButton.html("Pause");
     }
-    console.log(bot.params, sum);
-
-    let n = Math.sqrt(sum);
-    for (let i = 0; i < 4; i++) bot.params[i] = bot.params[i] / n;
-    return bot;
   };
 
-  let mutate = (bot) => {
-    if (Math.random() <= Config.mutationRate) {
-      // bot.params[0] += 0.05;
-      // bot.params[1] -= 0.05;
-      // bot.params[2] -= 0.05;
-      // bot.params[3] -= 0.05;
-    }
-  };
 
-  let nextGen = () => {
-    generation += 1;
-    let bots = [];
-    calcFitnessRatio();
-    let pool = generateMatingPool();
-    for (let i = 0; i < Config.popSize; i++) {
-      let newBot = crossOver(p.random(pool), p.random(pool));
-      mutate(newBot);
-      bots.push(newBot);
-    }
-    return bots;
-  };
-
-  //====================================================P5==========================================================
   p.setup = () => {
     p.createCanvas(Config.p5.canvasWidth, Config.p5.canvasHeight);
-    currentTetrimino = getNewTetrimino();
-    nextTetrimino = getNewTetrimino();
-    for (let i = 0; i < Config.popSize; i++) bots.push(new Bot(p));
-    p.frameRate(100);
-    botNumP = p.createP();
-    genP = p.createP();
-    fitnessP = p.createP();
-    paramsP = p.createP();
+    p.background(Config.p5.background);
+
+    /**
+     * Setup the population, the bot, and the game.
+     */
+    population = new Population(p);
+    bot = new Bot(p);
+    game = new Game();
+    tetriminos = game.getTetrimino();
+
+    /**
+     * Create information Div on the dom.
+     */
+    infoDiv = p.createDiv();
+    infoDiv.addClass("p5-info");
+    setInfo();
+
+    /**
+     * Speed setup
+     */
+    speedSlider = p.createSlider(1, 100, 10);
+
+    /**
+     * Train button and it's handler.
+     */
+    trainButton = p.createButton("Train");
+    trainButton.addClass("p5-button");
+    trainButton.mousePressed(play);
+
+    // p.frameRate(10);
   };
 
-  p.draw = () => {
-    if (!areAllBotsDead) {
+  let draw = () => {
+    for (let i = 0; i < speedSlider.value(); i++) {
       p.background(Config.p5.background);
-      let deadBotsCount = 0;
-      let tetriminoDoneCount = 0;
-      bots.forEach((bot, botIndex) => {
-        if (!bot.isDead && !currentTetrimino.isDecided) bot.decide(currentTetrimino, nextTetrimino);
-        if (!bot.isDead) tetriminoDoneCount += (bot.play(currentTetrimino)) ? 1 : 0;
-        else tetriminoDoneCount += 1;
 
-        if (bot.fitness > maxFitness) {
-          bestBotIndex = botIndex;
-          maxFitness = bot.fitness;
+      if (population.areAllVectorsPlayed) {
+        population.nextGeneration();
+        genInfo.html("Current Generation: " + population.generation);
+        bestFitInfo.html("Lines cleared this generation: " + population.bestFitness);
+      } else {
+        /**
+         * Printing INFO on the screen.
+         */
+        let currentVector = population.getVector();
+        currentVectorInfo.html("Current Vector: [" + currentVector.vector[0] + ", " + currentVector.vector[1] + ", " + currentVector.vector[2] + ", " + currentVector.vector[3] + "]");
+        currentVectorIndex.html("Current vector index: " + population.currentPlayingVectorIndex);
+        currentGameInfo.html("Current Game: " + currentVector.numOfGamesPlayed);
+        currentMoveInfo.html("Current Move: " + game.moveCount);
+
+        /**
+         * If bot is not dead and the game is not complete then
+         * continue with the current Vector with the current game.
+         */
+        if (!bot.isDead && !game.isCompleted) {
+          if (tetriminos.current.hasBeenPlayed) tetriminos = game.getTetrimino();
+          if (!tetriminos.current.hasBeenDecidedOn) bot.decide(tetriminos, currentVector.vector);
+          if (!tetriminos.current.hasBeenPlayed) {
+            bot.play(tetriminos);
+            tetriminos.current.i += 1;
+          }
+          bot.show(tetriminos.current);
+        } else {
+          /**
+           * If the bot has died or the moves per game have been reached
+           * tell the population object that the game has been completed.
+           */
+          population.completedGame(bot.numOfLinesCleared);
+          bot.reset();
+          game.reset();
+          tetriminos = game.getTetrimino();
         }
-        deadBotsCount += (bot.isDead) ? 1 : 0;
-      });
-
-      bots[bestBotIndex].show(currentTetrimino);
-      botNumP.html("Current Bot Index: " + bestBotIndex);
-      genP.html("Generation: " + generation);
-
-      currentTetrimino.isDecided = true;
-
-      areAllBotsDead = deadBotsCount === bots.length;
-      currentTetrimino.isDone = tetriminoDoneCount === bots.length;
-
-      if (generation > 0) {
-        fitnessP.html("Best fitness last generation: " + bestBot.fitness);
-        paramsP.html("Best params: [" + bestBot.params[0] + ", " + bestBot.params[1] + ", " + bestBot.params[2] + ", " + bestBot.params[3] + "]")
       }
-
-      if (currentTetrimino.isDone) {
-        currentTetrimino = nextTetrimino;
-        nextTetrimino = getNewTetrimino();
-      } else currentTetrimino.i += 1;
-    } else {
-      p.background(Config.p5.background);
-      bots = nextGen();
-      currentTetrimino = getNewTetrimino();
-      nextTetrimino = getNewTetrimino();
-      areAllBotsDead = false;
-      maxFitness = 0;
     }
   }
 }

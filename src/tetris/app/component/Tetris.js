@@ -2,6 +2,7 @@ import React from "react";
 import {Container} from "react-bootstrap";
 import P5Wrapper from "react-p5-wrapper";
 import Sketch from "../p5/sketch";
+import "../tetris.css";
 
 export default class Tetris extends React.Component {
   render() {

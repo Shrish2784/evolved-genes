@@ -10,15 +10,22 @@ export default class Game {
     this.nextTetrimino = getNewTetrimino();
   }
 
+  reset = () => {
+    this.isCompleted = false;
+    this.moveCount = 0;
+
+    this.currentTetrimino = getNewTetrimino();
+    this.nextTetrimino = getNewTetrimino();
+  };
 
   getTetrimino = () => {
+    this.currentTetrimino = this.nextTetrimino;
+    this.nextTetrimino = getNewTetrimino();
+    this.moveCount += 1;
     if (this.moveCount === Config.movesPerGame) {
+      console.log("game completed");
       this.isCompleted = true;
-      return null;
-    } else {
-      this.currentTetrimino = this.nextTetrimino;
-      this.nextTetrimino = getNewTetrimino();
-      return {current: this.currentTetrimino, next: this.nextTetrimino};
     }
+    return {current: this.currentTetrimino, next: this.nextTetrimino};
   }
 }

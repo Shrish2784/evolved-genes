@@ -32,7 +32,8 @@ export const tetriminoes = {
         width: 3,
         height: 1
       }
-    ]
+    ],
+    color: "#FFCC00"
   },
   O: {
     shapes: [
@@ -41,7 +42,8 @@ export const tetriminoes = {
         width: 2,
         height: 2
       },
-    ]
+    ],
+    color: "#FF0000"
   },
   L: {
     shapes: [
@@ -65,7 +67,8 @@ export const tetriminoes = {
         width: 3,
         height: 2
       }
-    ]
+    ],
+    color: "#FF3399"
   },
   J: {
     shapes: [
@@ -89,7 +92,8 @@ export const tetriminoes = {
         width: 3,
         height: 2
       }
-    ]
+    ],
+    color: "#009900"
   },
   S: {
     shapes: [
@@ -103,7 +107,8 @@ export const tetriminoes = {
         width: 2,
         height: 3
       }
-    ]
+    ],
+    color: "#0099FF"
   },
   Z: {
     shapes: [
@@ -117,7 +122,8 @@ export const tetriminoes = {
         width: 2,
         height: 3
       },
-    ]
+    ],
+    color: "#660099"
   },
   T: {
     shapes: [
@@ -141,7 +147,8 @@ export const tetriminoes = {
         width: 2,
         height: 3
       },
-    ]
+    ],
+    color: "rgb(0,255,193)"
   }
 };
 

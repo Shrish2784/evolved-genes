@@ -10,6 +10,12 @@ import Config from "./config";
 import logo from "./brand_logo.png";
 import Tetris from "./tetris/app/component/Tetris";
 
+let changeClass = (e) => {
+  let target = e.target.parentElement;
+  target.parentElement.childNodes.forEach(node => node.classList.remove("active"));
+  target.classList.add("active");
+};
+
 function App() {
   return (
     <div>
@@ -21,8 +27,13 @@ function App() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto">
               {Object.entries(Config.apps).map(([key, val]) =>
-                <Nav.Item key={key} className="nav-link">
-                  <Link className="evolve-link" to={val["appUrl"]}>{val["appName"]}</Link>
+                <Nav.Item key={key} className="nav-link navs mx-2">
+                  <Link
+                    className="evolve-link"
+                    to={val["appUrl"]}
+                    onClick={(e) => changeClass(e)}>
+                    {val["appName"]}
+                  </Link>
                 </Nav.Item>
               )}
             </Nav>

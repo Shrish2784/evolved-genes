@@ -7,17 +7,17 @@ export default class Grid {
     this.matrix = [];
     this.heights = [];
     this.init();
-    this.played = false;
   }
 
-  static applySlot = (slots, jIndex, grid, i) => {
+  static _applySlot = (slots, jIndex, grid, i, color = "rgb(255,255,255)") => {
     slots.forEach(slot => {
       grid.matrix[i + slot[0]][jIndex + slot[1]].isFilled = true;
+      if (color) grid.matrix[i + slot[0]][jIndex + slot[1]].color = color;
       grid.heights[jIndex + slot[1]] = Math.max(Config.grid.rows - (i + slot[0]), grid.heights[jIndex + slot[1]]);
     });
   };
 
-  static isIndexPossible = (slots, jIndex, grid, i) => {
+  static _isIndexPossible = (slots, jIndex, grid, i) => {
     let isPossible = true;
     for (let j = 0; j < slots.length; j++) {
       const slot = slots[j];
@@ -43,18 +43,31 @@ export default class Grid {
 
     while (isPossible && i <= 19) {
       i += 1;
-      isPossible = Grid.isIndexPossible(shape.slots, jIndex, grid, i);
+      isPossible = Grid._isIndexPossible(shape.slots, jIndex, grid, i);
     }
 
     i -= 1;
     if (i < 0) return false;
 
-    shape.slots.forEach(slot => {
-      grid.matrix[i + slot[0]][jIndex + slot[1]].isFilled = true;
-    });
-
-    // Grid.applySlot(shape.slots, jIndex, grid, i);
+    Grid._applySlot(shape.slots, jIndex, grid, i);
     return true;
+  };
+
+  init = (newSlots = true) => {
+    let {rows, cols} = Config.grid;
+    for (let i = 0; i < rows; i++) {
+      if (newSlots) {
+        let row = [];
+        for (let j = 0; j < cols; j++) row.push(new Slot(this.p, i, j));
+        this.matrix.push(row);
+      } else {
+        for (let j = 0; j < cols; j++) {
+          this.matrix[i][j].isFilled = false;
+          this.matrix[i][j].color = Config.slot.color;
+        }
+      }
+    }
+    this.heights = new Array(cols).fill(0);
   };
 
   //===============================================GRID HELPERS==============================================
@@ -67,7 +80,7 @@ export default class Grid {
     return grid;
   };
 
-  getFilledRows = () => {
+  _getFilledRows = () => {
     let filledRows = [];
     this.matrix.forEach((row, ind) => {
       let isFilled = true;
@@ -78,7 +91,7 @@ export default class Grid {
     return filledRows;
   };
 
-  getHoles = () => {
+  _getHoles = () => {
     let holes = 0;
     for (let j = 0; j < Config.grid.cols; j++) {
       let foundFilled = false;
@@ -91,31 +104,13 @@ export default class Grid {
   };
 
   //==========================================================GAME=============================================
-  init = () => {
-    let {rows, cols} = Config.grid;
-    for (let i = 0; i < rows; i++) {
-      let row = [];
-      for (let j = 0; j < cols; j++) row.push(new Slot(this.p, i, j));
-      this.matrix.push(row);
-    }
-    this.heights = new Array(cols).fill(0);
-  };
 
   compute = () => {
     //CLEARED_ROWS AND HOLES
-    let filledRows = this.getFilledRows();
+    let filledRows = this._getFilledRows();
     let clearedRows = filledRows.length;
 
-    filledRows.forEach(rowIndex => {
-      let i = rowIndex;
-      while (i > 0) {
-        for (let j = 0; j < Config.grid.cols; j++) this.matrix[i][j].isFilled = this.matrix[i - 1][j].isFilled;
-        i -= 1;
-      }
-      this.matrix[i].forEach(slot => slot.isFilled = false);
-    });
-
-    let holes = this.getHoles();
+    let holes = this._getHoles();
 
     //HEIGHT AND BUMP
     let aggHeight = 0;
@@ -126,33 +121,47 @@ export default class Grid {
     }
     aggHeight += this.heights[this.heights.length - 1];
 
+    filledRows.forEach(rowIndex => {
+      let i = rowIndex;
+      while (i > 0) {
+        for (let j = 0; j < Config.grid.cols; j++) {
+          this.matrix[i][j].isFilled = this.matrix[i - 1][j].isFilled;
+          this.matrix[i][j].color = this.matrix[i - 1][j].color;
+        }
+        i -= 1;
+      }
+      this.matrix[i].forEach(slot => slot.isFilled = false);
+    });
+
     return {bumps: bumps, aggHeight: aggHeight, clearedRows: clearedRows, holes: holes};
   };
 
-  play = (tetrimino = null, shapeIndex = null, jIndex = null) => {
-    if (tetrimino != null && shapeIndex != null && jIndex != null) {
-      let slots = tetrimino.tetrimino.shapes[shapeIndex].slots;
-      if (!Grid.isIndexPossible(slots, jIndex, this, tetrimino.i)) {
-        Grid.applySlot(slots, jIndex, this, tetrimino.i - 1);
-        this.played = true;
-        return this.played;
+  play = (tetrimino = null) => {
+    if (tetrimino != null) {
+      if (tetrimino.hasBeenDecidedOn) {
+        let slots = tetrimino.decidedShape.slots;
+        if (!Grid._isIndexPossible(slots, tetrimino.decidedJIndex, this, tetrimino.i)) {
+          Grid._applySlot(slots, tetrimino.decidedJIndex, this, tetrimino.i - 1, tetrimino.color);
+          tetrimino.hasBeenPlayed = true;
+        }
       }
     }
-    this.played = false;
-    return this.played;
+    return false;
   };
 
-  //=============================================================P5==============================================
-  show = (tetrimino = null, shapeIndex = null, jIndex = null) => {
+  show = (tetrimino = null) => {
     for (let row of this.matrix) for (let slot of row) slot.show();
 
-    if (tetrimino != null && shapeIndex != null && jIndex != null && !this.played) {
-      let filledSlot = new Slot(this.p, tetrimino.i, tetrimino.j, true);
-      let slots = tetrimino.tetrimino.shapes[shapeIndex].slots;
-      slots.forEach(slot => {
-        filledSlot.setCoordinates(tetrimino.i + slot[0], jIndex + slot[1]);
-        filledSlot.show();
-      });
+    if (tetrimino != null) {
+      if (tetrimino.hasBeenDecidedOn && !tetrimino.hasBeenPlayed) {
+        let filledSlot = new Slot(this.p, tetrimino.i, tetrimino.j, true);
+        let slots = tetrimino.decidedShape.slots;
+        slots.forEach(slot => {
+          filledSlot.setCoordinates(tetrimino.i + slot[0], tetrimino.decidedJIndex + slot[1]);
+          filledSlot.color = tetrimino.color;
+          filledSlot.show();
+        });
+      }
     }
   }
 }

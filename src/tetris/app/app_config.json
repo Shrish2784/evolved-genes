@@ -1,10 +1,14 @@
 {
-  "popSize": 10,
-  "mutationRate": 0.3,
+  "popSize": 100,
+  "tournamentSize": 0.1,
+  "selectionSize": 0.3,
+  "mutationRate": 0.05,
+  "gamesPerVector": 20,
+  "movesPerGame": 500,
   "p5": {
     "canvasHeight": 400,
     "canvasWidth": 200,
-    "background": 255
+    "background": "#ffffff"
   },
   "grid": {
     "rows": 20,
@@ -13,7 +17,7 @@
   "slot": {
     "w": 20,
     "h": 20,
-    "color": 0,
-    "filledColor": "rgba(255,0,0,1)"
+    "color": "rgba(255, 255, 255, 1)",
+    "filledColor": "rgba(255,255,255,1)"
   }
 }

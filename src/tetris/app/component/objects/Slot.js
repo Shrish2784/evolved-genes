@@ -4,13 +4,13 @@ export default class Slot {
   constructor(p, i, j, isFilled = false) {
     //p5
     this.p = p;
-    this.sConf = Config.slot;
     this.i = i;
     this.j = j;
-    this.w = this.sConf.w;
-    this.h = this.sConf.h;
+    this.w = Config.slot.w;
+    this.h = Config.slot.h;
     this.x = j * this.w;
     this.y = i * this.h;
+    this.color = Config.slot.color;
 
     //gameLogic
     this.isFilled = isFilled;
@@ -24,10 +24,9 @@ export default class Slot {
   };
 
   show = () => {
-    let {p, sConf, x, y, w, h} = this;
-
-    if (this.isFilled) p.fill(sConf.filledColor);
-    else p.fill(sConf.color);
+    let {p, x, y, w, h} = this;
+    p.noStroke();
+    p.fill(this.color);
     p.rect(x, y, w, h);
   }
 }
