@@ -19,19 +19,19 @@ export default class Vector {
 
   initVectors = (p, params) => {
     if (!params) params = JSON.parse(localStorage.getItem("params"));
+    if (!params) params = {
+      aggHeight: {mean: -0.5, sd: 0.5},
+      holes: {mean: -0.5, sd: 0.5},
+      bumps: {mean: -0.5, sd: 0.5},
+      clearedRows: {mean: 0.5, sd: 0.5}
+    };
+
     localStorage.setItem("params", JSON.stringify(params));
 
-    if (params) {
-      this.vector.clearedRows = p.randomGaussian(params.clearedRows.mean, params.clearedRows.sd);
-      this.vector.bumps = p.randomGaussian(params.bumps.mean, params.bumps.sd);
-      this.vector.holes = p.randomGaussian(params.holes.mean, params.holes.sd);
-      this.vector.aggHeight = p.randomGaussian(params.aggHeight.mean, params.aggHeight.sd);
-    } else {
-      this.vector.clearedRows = p.randomGaussian(0.5, 0.5);
-      this.vector.bumps = p.randomGaussian(-0.5, 0.5);
-      this.vector.holes = p.randomGaussian(-0.5, 0.5);
-      this.vector.aggHeight = p.randomGaussian(-0.5, 0.5);
-    }
+    this.vector.clearedRows = p.randomGaussian(params.clearedRows.mean, params.clearedRows.sd);
+    this.vector.bumps = p.randomGaussian(params.bumps.mean, params.bumps.sd);
+    this.vector.holes = p.randomGaussian(params.holes.mean, params.holes.sd);
+    this.vector.aggHeight = p.randomGaussian(params.aggHeight.mean, params.aggHeight.sd);
   };
 
   completedGame = (numOfLinesCleared) => {

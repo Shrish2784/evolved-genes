@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9baf1820-4530-4f57-b5dc-9c8ee554ad89" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tetris/app/app_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tetris/app/app_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tetris/app/ga/Bot.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tetris/app/ga/Bot.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tetris/app/ga/Population.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tetris/app/ga/Population.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tetris/app/ga/Vector.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tetris/app/ga/Vector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tetris/app/p5/sketch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tetris/app/p5/sketch.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +107,7 @@
       <workItem from="1586254389599" duration="15479000" />
       <workItem from="1586297002832" duration="6066000" />
       <workItem from="1586320185799" duration="1880000" />
-      <workItem from="1586442050631" duration="10611000" />
+      <workItem from="1586442050631" duration="10829000" />
     </task>
     <servers />
   </component>

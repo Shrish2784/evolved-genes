@@ -1,9 +1,9 @@
 {
-  "popSize": 10,
-  "selectionSize": 1,
+  "popSize": 60,
+  "selectionSize": 0.3,
   "mutationRate": 0.05,
-  "gamesPerVector": 1,
-  "movesPerGame": 20,
+  "gamesPerVector": 25,
+  "movesPerGame": 500,
   "p5": {
     "canvasHeight": 400,
     "canvasWidth": 200,
