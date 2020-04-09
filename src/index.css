@@ -1,12 +1,11 @@
 body {
     margin: 0;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Fira Code', monospace;
     padding-top: 70px;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: 'Fira Code', monospace;
 }
 
 

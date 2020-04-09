@@ -123,13 +123,13 @@ export default function Sketch(p) {
         population.nextGeneration();
         localStorage.setItem("bestVector", JSON.stringify(population.bestVector));
         genInfo.html("Current Generation: " + population.generation);
-        bestFitInfo.html("Lines cleared this generation: " + population.bestVector.bestFitness);
+        bestFitInfo.html("Lines cleared this generation: " + population.bestVector.fitness);
       } else {
         /**
          * Printing INFO on the screen.
          */
         let currentVector = population.getVector();
-        currentVectorInfo.html("Current Vector: [" + currentVector.vector[0] + ", " + currentVector.vector[1] + ", " + currentVector.vector[2] + ", " + currentVector.vector[3] + "]");
+        currentVectorInfo.html("Current Vector: [" + currentVector.vector.aggHeight + ", " + currentVector.vector.clearedRows + ", " + currentVector.vector.holes + ", " + currentVector.vector.bumps + "]");
         currentVectorIndex.html("Current vector index: " + population.currentPlayingVectorIndex);
         currentGameInfo.html("Current Game: " + currentVector.numOfGamesPlayed);
         currentMoveInfo.html("Current Move: " + game.moveCount);

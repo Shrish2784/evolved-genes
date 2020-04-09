@@ -79,11 +79,11 @@ export default class Bot {
   };
 
   _calcScore = (heuristics, vector) => {
-    return (0 -
-      (vector[0] * heuristics.aggHeight) +
-      (vector[1] * heuristics.clearedRows) -
-      (vector[2] * heuristics.holes) -
-      (vector[3] * heuristics.bumps)
+    return (
+      (vector.clearedRows * heuristics.clearedRows) +
+      (vector.aggHeight * heuristics.aggHeight) +
+      (vector.holes * heuristics.holes) +
+      (vector.bumps * heuristics.bumps)
     );
   };
 

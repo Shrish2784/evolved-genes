@@ -13,13 +13,13 @@ export default class Population {
   }
 
   //====================SETUP====================
-  initVectors = () => {
-    for (let i = 0; i < Config.popSize; i++) this.vectors.push(new Vector());
+  initVectors = (params = null) => {
+    this.vectors = [];
+    for (let i = 0; i < Config.popSize; i++) this.vectors.push(new Vector(this.p, params));
   };
 
   reset = () => {
     this.generation += 1;
-    this.vectors.forEach(vector => vector.reset());
     this.currentPlayingVectorIndex = 0;
     this.areAllVectorsPlayed = false;
   };
@@ -42,70 +42,61 @@ export default class Population {
 
   //====================GA====================
   nextGeneration = () => {
-    this.bestVector = this.vectors[0];
-    this.vectors.forEach(vector => {
-      if (vector.fitness > this.bestVector.fitness) {
-        this.bestVector = vector;
-      }
-    });
-
-    let newPop = [];
     let {selectionSize, popSize} = Config;
-    for (let i = 0; i < (selectionSize * popSize); i++) {
-      let subPop = this.getCandidates();
-
-      let bestVector = null;
-      let bestVectorFitness = 0;
-      let betterVector = null;
-      let betterVectorFitness = 0;
-      for (let vector of subPop)
-        if (vector.fitness > bestVectorFitness) {
-          betterVector = bestVector;
-          betterVectorFitness = bestVectorFitness;
-          bestVector = vector;
-          bestVectorFitness = vector.fitness;
-        } else if (vector.fitness > betterVectorFitness) {
-          betterVector = vector;
-          betterVectorFitness = vector.fitness;
-        }
-
-      newPop.push(this.crossOver(bestVector, betterVector));
-    }
 
     this.vectors.sort((vector1, vector2) => (vector1.fitness - vector2.fitness));
-    this.vectors.splice(0, selectionSize * popSize);
-    this.vectors = [...newPop, ...this.vectors];
-    this.reset();
-  };
+    this.bestVector = this.vectors[popSize - 1];
 
-  getCandidates = () => {
-    let {tournamentSize, popSize} = Config;
-    let subPop = [];
-    for (let i = 0; i < (tournamentSize * popSize); i++) subPop.push(this.vectors[Math.floor(Math.random() * popSize)]);
-    return subPop;
-  };
+    let count = (popSize * selectionSize);
+    let index = popSize - count;
+    let params = {
+      aggHeight: {mean: 0, sd: 1},
+      holes: {mean: 0, sd: 1},
+      bumps: {mean: 0, sd: 1},
+      clearedRows: {mean: 0, sd: 1}
+    };
 
-  crossOver = (vector1, vector2) => {
-    let vector = [];
-    // let sum = 0;
-    // for (let i = 0; i < 4; i++) {
-    //   vector1.vector[i] *= vector1.fitness;
-    //   vector2.vector[i] *= vector2.fitness;
-    //   vector[i] = vector1.vector[i] + vector2.vector[i];
-    //   sum += vector[i];
-    // }
-    //
-    // sum = Math.sqrt(sum);
-    // for (let i = 0; i < 4; i++) {
-    //   vector[i] /= sum;
-    // }
+    let aggHeightSum = 0, holeSum = 0, bumpSum = 0, clearedRowSum = 0;
+    let bestPop = this.vectors.slice(index, popSize);
+    for (let i = 0; i < count; i++) {
+      let v = bestPop[i].vector;
 
-    for (let i = 0; i < 4; i++) {
-      vector[i] = this.p.random([vector1.vector[i], vector2.vector[i]]);
+      clearedRowSum += v.clearedRows;
+      holeSum += v.holes;
+      bumpSum += v.bumps;
+      aggHeightSum += v.aggHeight;
     }
 
-    let v = new Vector();
-    v.vector = vector;
-    return v;
+    params.aggHeight.mean = aggHeightSum / count;
+    params.holes.mean = holeSum / count;
+    params.bumps.mean = bumpSum / count;
+    params.clearedRows.mean = clearedRowSum / count;
+
+    clearedRowSum = 0;
+    holeSum = 0;
+    bumpSum = 0;
+    aggHeightSum = 0;
+
+    for (let i = 0; i < count; i++) {
+      let v = bestPop[i].vector;
+
+      clearedRowSum += Math.pow(v.clearedRows - params.clearedRows.mean, 2);
+      holeSum += Math.pow(v.holes - params.holes.mean, 2);
+      bumpSum += Math.pow(v.bumps - params.bumps.mean, 2);
+      aggHeightSum += Math.pow(v.aggHeight - params.aggHeight.mean, 2);
+    }
+
+    clearedRowSum /= count;
+    holeSum /= count;
+    bumpSum /= count;
+    aggHeightSum /= count;
+
+    params.aggHeight.sd = Math.sqrt(aggHeightSum);
+    params.clearedRows.sd = Math.sqrt(clearedRowSum);
+    params.bumps.sd = Math.sqrt(bumpSum);
+    params.holes.sd = Math.sqrt(holeSum);
+
+    this.initVectors(params);
+    this.reset();
   };
 }
