@@ -106,13 +106,16 @@ export default class Grid {
   //==========================================================GAME=============================================
 
   compute = () => {
-    //CLEARED_ROWS AND HOLES
+    //Calculate Filled Rows
     let filledRows = this._getFilledRows();
     let clearedRows = filledRows.length;
 
+    //Calculate Rows
     let holes = this._getHoles();
 
-    //HEIGHT AND BUMP
+    /**
+     * Calculate Aggregate height of all rows and calculate the bumps.
+     */
     let aggHeight = 0;
     let bumps = 0;
     for (let i = 0; i < this.heights.length - 1; i++) {
@@ -121,6 +124,9 @@ export default class Grid {
     }
     aggHeight += this.heights[this.heights.length - 1];
 
+    /**
+     * Removing the completely filled rows.
+     */
     filledRows.forEach(rowIndex => {
       let i = rowIndex;
       while (i > 0) {
@@ -140,6 +146,8 @@ export default class Grid {
     if (tetrimino != null) {
       if (tetrimino.hasBeenDecidedOn) {
         let slots = tetrimino.decidedShape.slots;
+
+        //TODO: Improve this part for the TRAINING.
         if (!Grid._isIndexPossible(slots, tetrimino.decidedJIndex, this, tetrimino.i)) {
           Grid._applySlot(slots, tetrimino.decidedJIndex, this, tetrimino.i - 1, tetrimino.color);
           tetrimino.hasBeenPlayed = true;
@@ -149,6 +157,7 @@ export default class Grid {
     return false;
   };
 
+  //===============================================P5=====================================================
   show = (tetrimino = null) => {
     for (let row of this.matrix) for (let slot of row) slot.show();
 

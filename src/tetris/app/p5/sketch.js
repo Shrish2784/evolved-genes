@@ -28,6 +28,7 @@ export default function Sketch(p) {
   let currentGameInfo = null;
   let currentMoveInfo = null;
   let bestFitInfo = null;
+  let speed = null;
 
   let trainButton = null;
   let playing = false;
@@ -47,6 +48,7 @@ export default function Sketch(p) {
     currentGameInfo = p.createP("Current Game: " + 0);
     currentMoveInfo = p.createP("Current move: " + 0);
     bestFitInfo = p.createP();
+    speed = p.createP("Speed: " + 1);
 
     infoDiv.child(popSizeInfo);
     infoDiv.child(mutRateInfo);
@@ -58,6 +60,7 @@ export default function Sketch(p) {
     infoDiv.child(currentGameInfo);
     infoDiv.child(currentMoveInfo);
     infoDiv.child(bestFitInfo);
+    infoDiv.child(speed);
   };
 
   /**
@@ -99,7 +102,7 @@ export default function Sketch(p) {
     /**
      * Speed setup
      */
-    speedSlider = p.createSlider(1, 100, 10);
+    speedSlider = p.createSlider(1, 1000, 0, 10);
 
     /**
      * Train button and it's handler.
@@ -113,13 +116,14 @@ export default function Sketch(p) {
 
   let draw = () => {
     for (let i = 0; i < speedSlider.value(); i++) {
+      speed.html("Speed: " + speedSlider.value());
       p.background(Config.p5.background);
 
       if (population.areAllVectorsPlayed) {
         population.nextGeneration();
-        localStorage.setItem("bestVector", population.bestVector);
+        localStorage.setItem("bestVector", JSON.stringify(population.bestVector));
         genInfo.html("Current Generation: " + population.generation);
-        bestFitInfo.html("Lines cleared this generation: " + population.bestFitness);
+        bestFitInfo.html("Lines cleared this generation: " + population.bestVector.bestFitness);
       } else {
         /**
          * Printing INFO on the screen.
@@ -135,13 +139,29 @@ export default function Sketch(p) {
          * continue with the current Vector with the current game.
          */
         if (!bot.isDead && !game.isCompleted) {
+          /**
+           * Get the next tetrimino if the current one is played.
+           *
+           * isPlayed means that the tetrimino is placed where it
+           * was decided to be placed by the bot.
+           */
           if (tetriminos.current.hasBeenPlayed) tetriminos = game.getTetrimino();
+
+          /**
+           * If the bot has not yet decided as to where to put the current
+           * tetrimino, then ask bot to decide the move.
+           */
           if (!tetriminos.current.hasBeenDecidedOn) bot.decide(tetriminos, currentVector.vector);
+
+          /**
+           * Since the bot has decided on the move, tell it to play
+           * the move if the current tetrimino hasn't been played with.
+           */
           if (!tetriminos.current.hasBeenPlayed) {
             bot.play(tetriminos);
             tetriminos.current.i += 1;
           }
-          // bot.show(tetriminos.current);
+          bot.show(tetriminos.current);
         } else {
           /**
            * If the bot has died or the moves per game have been reached

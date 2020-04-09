@@ -6,7 +6,6 @@ export default class Population {
     this.p = p;
     this.generation = 0;
     this.bestVector = null;
-    this.bestFitness = 0;
     this.vectors = [];
     this.currentPlayingVectorIndex = 0;
     this.areAllVectorsPlayed = false;
@@ -45,9 +44,8 @@ export default class Population {
   nextGeneration = () => {
     this.bestVector = this.vectors[0];
     this.vectors.forEach(vector => {
-      if (vector.fitness > this.bestFitness) {
-        this.bestFitness = vector.fitness;
-        this.bestVector = vector.vector;
+      if (vector.fitness > this.bestVector.fitness) {
+        this.bestVector = vector;
       }
     });
 

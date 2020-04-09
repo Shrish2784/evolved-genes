@@ -33,7 +33,7 @@ export const tetriminoes = {
         height: 1
       }
     ],
-    color: "#FFCC00"
+    color: "#FFFF00"
   },
   O: {
     shapes: [
@@ -93,7 +93,7 @@ export const tetriminoes = {
         height: 2
       }
     ],
-    color: "#009900"
+    color: "#00FF00"
   },
   S: {
     shapes: [
