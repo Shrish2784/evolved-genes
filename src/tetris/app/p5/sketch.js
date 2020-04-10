@@ -10,6 +10,8 @@ export default function Sketch(p) {
   let tetriminos = null;
   let speedSlider = null;
 
+  let showGrid = true;
+
   /**
    * Fixed info, i.e, Once set need not to update.
    */
@@ -31,6 +33,7 @@ export default function Sketch(p) {
   let speed = null;
 
   let trainButton = null;
+  let showButton = null;
   let playing = false;
 
   /**
@@ -42,7 +45,7 @@ export default function Sketch(p) {
     gamesPerVectorInfo = p.createP("Games per vector: " + Config.gamesPerVector);
     movesPerGameInfo = p.createP("Moves per game: " + Config.movesPerGame);
 
-    genInfo = p.createP("Current Generation: " + 0);
+    genInfo = p.createP("Current Generation: " + population.generation) ;
     currentVectorInfo = p.createP();
     currentVectorIndex = p.createP("Current vector index: " + 0);
     currentGameInfo = p.createP("Current Game: " + 0);
@@ -64,7 +67,18 @@ export default function Sketch(p) {
   };
 
   /**
-   * Training Pause/Play facility.
+   * Renders paragraph DOM elements containing details of the GA.
+   */
+  let printInfo = () => {
+    let currentVector = population.getVector();
+    currentVectorInfo.html("Current Vector: [" + currentVector.vector.aggHeight + ", " + currentVector.vector.clearedRows + ", " + currentVector.vector.holes + ", " + currentVector.vector.bumps + "]");
+    currentVectorIndex.html("Current vector index: " + population.currentPlayingVectorIndex);
+    currentGameInfo.html("Current Game: " + currentVector.numOfGamesPlayed);
+    currentMoveInfo.html("Current Move: " + game.moveCount);
+  };
+
+  /**
+   * Training Pause/Play logic.
    */
   let play = () => {
     if (playing) {
@@ -111,28 +125,55 @@ export default function Sketch(p) {
     trainButton.addClass("p5-button");
     trainButton.mousePressed(play);
 
-    // p.frameRate(10);
+    /**
+     * Show Button to toggle board display.
+     */
+    showButton = p.createButton("Hide");
+    showButton.addClass("p5-button");
+    showButton.mousePressed(() => {
+      showGrid = !showGrid;
+      showButton.html((showGrid) ? "Hide" : "Show");
+    });
+
+    // p.frameRate();
   };
 
   let draw = () => {
+    /**
+     * This loop controls the number of cycles of the
+     * algorithm to run in a single frame.
+     */
     for (let i = 0; i < speedSlider.value(); i++) {
+
+      /**
+       * Display the number of cycle.
+       */
       speed.html("Speed: " + speedSlider.value());
       p.background(Config.p5.background);
 
+      /**
+       * If all the vectors have played all the games,
+       * generate new vectors evolving from previous ones.
+       */
       if (population.areAllVectorsPlayed) {
         population.nextGeneration();
+
+        /**
+         * Store the Vector object with the best fitness in
+         *  the localstorage.
+         */
         localStorage.setItem("bestVector", JSON.stringify(population.bestVector));
+
+        /**
+         * Display generation details.
+         */
         genInfo.html("Current Generation: " + population.generation);
         bestFitInfo.html("Lines cleared this generation: " + population.bestVector.fitness);
       } else {
         /**
          * Printing INFO on the screen.
          */
-        let currentVector = population.getVector();
-        currentVectorInfo.html("Current Vector: [" + currentVector.vector.aggHeight + ", " + currentVector.vector.clearedRows + ", " + currentVector.vector.holes + ", " + currentVector.vector.bumps + "]");
-        currentVectorIndex.html("Current vector index: " + population.currentPlayingVectorIndex);
-        currentGameInfo.html("Current Game: " + currentVector.numOfGamesPlayed);
-        currentMoveInfo.html("Current Move: " + game.moveCount);
+        printInfo();
 
         /**
          * If bot is not dead and the game is not complete then
@@ -140,28 +181,23 @@ export default function Sketch(p) {
          */
         if (!bot.isDead && !game.isCompleted) {
           /**
-           * Get the next tetrimino if the current one is played.
+           * Bot plays the current move and adjusts the
+           * board accordingly.
+           */
+          bot.play(tetriminos, population.getVector());
+
+          /**
+           * Get the next Tetriminos.
+           * @type {{next: Tetrimino, current: Tetrimino}}
+           */
+          tetriminos = game.getTetrimino();
+
+          /**
+           * Show the board only if the flag is true.
            *
-           * isPlayed means that the tetrimino is placed where it
-           * was decided to be placed by the bot.
+           * This helps removing rendering load during training.
            */
-          if (tetriminos.current.hasBeenPlayed) tetriminos = game.getTetrimino();
-
-          /**
-           * If the bot has not yet decided as to where to put the current
-           * tetrimino, then ask bot to decide the move.
-           */
-          if (!tetriminos.current.hasBeenDecidedOn) bot.decide(tetriminos, currentVector.vector);
-
-          /**
-           * Since the bot has decided on the move, tell it to play
-           * the move if the current tetrimino hasn't been played with.
-           */
-          if (!tetriminos.current.hasBeenPlayed) {
-            bot.play(tetriminos);
-            tetriminos.current.i += 1;
-          }
-          bot.show(tetriminos.current);
+          if (showGrid) bot.show();
         } else {
           /**
            * If the bot has died or the moves per game have been reached
@@ -170,6 +206,11 @@ export default function Sketch(p) {
           population.completedGame(bot.numOfLinesCleared);
           bot.reset();
           game.reset();
+
+          /**
+           * Get the next Tetriminos.
+           * @type {{next: Tetrimino, current: Tetrimino}}
+           */
           tetriminos = game.getTetrimino();
         }
       }

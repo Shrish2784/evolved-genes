@@ -5,7 +5,17 @@ export default class Population {
   constructor(p) {
     this.p = p;
     this.generation = 0;
+    let localGeneration = parseInt(localStorage.getItem("generation"));
+    if (localGeneration) {
+      this.generation = localGeneration;
+      console.log(this.generation);
+    } else localStorage.setItem("generation", this.generation);
     this.bestVector = null;
+    this.noise = null;
+
+    /**
+     * @type {Vector[]}
+     */
     this.vectors = [];
     this.currentPlayingVectorIndex = 0;
     this.areAllVectorsPlayed = false;
@@ -13,11 +23,19 @@ export default class Population {
   }
 
   //====================SETUP====================
+  /**
+   * Initialize all the vectors.
+   * @param params
+   */
   initVectors = (params = null) => {
     this.vectors = [];
-    for (let i = 0; i < Config.popSize; i++) this.vectors.push(new Vector(this.p, params));
+    localStorage.setItem("generation", this.generation);
+    for (let i = 0; i < Config.popSize; i++) this.vectors.push(new Vector(this.p, params, this.generation));
   };
 
+  /**
+   * Reset the population properties.
+   */
   reset = () => {
     this.generation += 1;
     this.currentPlayingVectorIndex = 0;
@@ -26,8 +44,20 @@ export default class Population {
 
 
   //====================GAME====================
+  /**
+   * Get the current vector.
+   * @returns {Vector}
+   */
   getVector = () => this.vectors[this.currentPlayingVectorIndex];
 
+  /**
+   * On completion of a game, Sets current Vector's fitness
+   * Checks if the number of games played by the vector has
+   * increased the max number of games allowed, marks the
+   * current vector as played.
+   *
+   * @param numOfLinesCleared
+   */
   completedGame = (numOfLinesCleared) => {
     let vector = this.vectors[this.currentPlayingVectorIndex];
 
@@ -35,12 +65,25 @@ export default class Population {
     if (vector.numOfGamesPlayed >= Config.gamesPerVector) this._playedCurrentVector();
   };
 
+  /**
+   * Current vector has played max games, increase {currentPlayingVectorIndex}
+   * Mark current population as complete if all the vectors have played all the
+   * games.
+   *
+   * @private
+   */
   _playedCurrentVector = () => {
     this.currentPlayingVectorIndex += 1;
     this.areAllVectorsPlayed = this.currentPlayingVectorIndex >= this.vectors.length;
   };
 
-  //====================GA====================
+  //==============================GA+================================
+  /**
+   * Generate the next generation.
+   *
+   * Uses Cross Entropy.
+   * Todo: Use noise to prevent early convergence.
+   */
   nextGeneration = () => {
     let {selectionSize, popSize} = Config;
 
@@ -96,7 +139,7 @@ export default class Population {
     params.bumps.sd = Math.sqrt(bumpSum);
     params.holes.sd = Math.sqrt(holeSum);
 
-    this.initVectors(params);
     this.reset();
+    this.initVectors(params);
   };
 }

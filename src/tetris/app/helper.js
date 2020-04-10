@@ -12,13 +12,6 @@ export const getTetriType = {
   6: 'T'
 };
 
-export const rotateArrayLeft = (arr, r, c) => {
-  let newArr = new Array(r).fill(new Array(c));
-  for (let i = 0; i < r; i++) for (let j = 0; j < c; j++) newArr[i][j] = arr[r - 1 - j][i];
-  return newArr;
-};
-
-
 export const tetriminoes = {
   I: {
     shapes: [
@@ -152,4 +145,8 @@ export const tetriminoes = {
   }
 };
 
+/**
+ * A randomly shaped new Tetrimino.
+ * @returns {Tetrimino}
+ */
 export const getNewTetrimino = () => new Tetrimino(Math.floor(Math.random() * 7));

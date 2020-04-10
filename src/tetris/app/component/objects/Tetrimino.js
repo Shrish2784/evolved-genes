@@ -7,10 +7,6 @@ export default class Tetrimino {
 
     this.tetrimino = tetriminoes[getTetriType[type]];
     this.color = this.tetrimino.color;
-    this.hasBeenPlayed = false;
-    this.hasBeenDecidedOn = false;
-    this.decidedShape = null;
-    this.decidedJIndex = null;
     this.type = type;
   }
 }

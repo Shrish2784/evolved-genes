@@ -37,7 +37,7 @@ export default class Grid {
     return isPossible;
   };
 
-  static apply = (shape, jIndex, grid) => {
+  static apply = (shape, jIndex, grid, color) => {
     let isPossible = true;
     let i = -1;
 
@@ -49,10 +49,16 @@ export default class Grid {
     i -= 1;
     if (i < 0) return false;
 
-    Grid._applySlot(shape.slots, jIndex, grid, i);
+    Grid._applySlot(shape.slots, jIndex, grid, i, color);
     return true;
   };
 
+  /**
+   * Resets the Grid object by initializing the height array, and the matrix.
+   * Keeps the older slot objects if newSlots is False.
+   *
+   * @param newSlots
+   */
   init = (newSlots = true) => {
     let {rows, cols} = Config.grid;
     for (let i = 0; i < rows; i++) {
@@ -70,16 +76,28 @@ export default class Grid {
     this.heights = new Array(cols).fill(0);
   };
 
-  //===============================================GRID HELPERS==============================================
+  /**
+   * Creates a clone of the grid object, with exactly the same state
+   * of the grid.
+   *
+   * @returns {Grid}
+   */
   clone = () => {
     let grid = new Grid(this.p);
     for (let i = 0; i < Config.grid.cols; i++) grid.heights[i] = this.heights[i];
-    for (let i = 0; i < Config.grid.rows; i++) for (let j = 0; j < Config.grid.cols; j++)
+    for (let i = 0; i < Config.grid.rows; i++) for (let j = 0; j < Config.grid.cols; j++) {
       grid.matrix[i][j].isFilled = this.matrix[i][j].isFilled;
+      grid.matrix[i][j].color = this.matrix[i][j].color;
+    }
 
     return grid;
   };
 
+  /**
+   * Indexes of the rows which are completely filled.
+   * @returns {[]}
+   * @private
+   */
   _getFilledRows = () => {
     let filledRows = [];
     this.matrix.forEach((row, ind) => {
@@ -91,6 +109,15 @@ export default class Grid {
     return filledRows;
   };
 
+  /**
+   * Computes the number of holes in the grid.
+   *
+   * A Slot is considered a hole if it is not filled,
+   * but has at least one filled Slot above it in the same column.
+   *
+   * @returns {number}
+   * @private
+   */
   _getHoles = () => {
     let holes = 0;
     for (let j = 0; j < Config.grid.cols; j++) {
@@ -103,14 +130,26 @@ export default class Grid {
     return holes;
   };
 
-  //==========================================================GAME=============================================
-
+  /**
+   * Calculates the values for all the features.
+   *
+   * @returns {{clearedRows: number, bumps: number, aggHeight: number, holes: number}}
+   */
   compute = () => {
-    //Calculate Filled Rows
+    /**
+     * Gets the array containing the indexes
+     * of rows which are completely filled.
+     *
+     * @type {[]}
+     */
     let filledRows = this._getFilledRows();
     let clearedRows = filledRows.length;
 
-    //Calculate Rows
+    /**
+     * Get the number of holes in the grid.
+     *
+     * @type {number}
+     */
     let holes = this._getHoles();
 
     /**
@@ -136,41 +175,20 @@ export default class Grid {
         }
         i -= 1;
       }
-      this.matrix[i].forEach(slot => slot.isFilled = false);
+
+      this.matrix[i].forEach(slot => {
+        slot.isFilled = false;
+        slot.color = Config.slot.color;
+      });
     });
 
     return {bumps: bumps, aggHeight: aggHeight, clearedRows: clearedRows, holes: holes};
   };
 
-  play = (tetrimino = null) => {
-    if (tetrimino != null) {
-      if (tetrimino.hasBeenDecidedOn) {
-        let slots = tetrimino.decidedShape.slots;
-
-        //TODO: Improve this part for the TRAINING.
-        if (!Grid._isIndexPossible(slots, tetrimino.decidedJIndex, this, tetrimino.i)) {
-          Grid._applySlot(slots, tetrimino.decidedJIndex, this, tetrimino.i - 1, tetrimino.color);
-          tetrimino.hasBeenPlayed = true;
-        }
-      }
-    }
-    return false;
-  };
-
-  //===============================================P5=====================================================
-  show = (tetrimino = null) => {
+  /**
+   * Render every slot in the Grid.
+   */
+  show = () => {
     for (let row of this.matrix) for (let slot of row) slot.show();
-
-    if (tetrimino != null) {
-      if (tetrimino.hasBeenDecidedOn && !tetrimino.hasBeenPlayed) {
-        let filledSlot = new Slot(this.p, tetrimino.i, tetrimino.j, true);
-        let slots = tetrimino.decidedShape.slots;
-        slots.forEach(slot => {
-          filledSlot.setCoordinates(tetrimino.i + slot[0], tetrimino.decidedJIndex + slot[1]);
-          filledSlot.color = tetrimino.color;
-          filledSlot.show();
-        });
-      }
-    }
-  }
+  };
 }

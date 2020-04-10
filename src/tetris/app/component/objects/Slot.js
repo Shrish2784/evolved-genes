@@ -2,7 +2,6 @@ import Config from "../../app_config";
 
 export default class Slot {
   constructor(p, i, j, isFilled = false) {
-    //p5
     this.p = p;
     this.i = i;
     this.j = j;
@@ -10,23 +9,30 @@ export default class Slot {
     this.h = Config.slot.h;
     this.x = j * this.w;
     this.y = i * this.h;
+
+    /**
+     * Default Color of every slot
+     * @type {string}
+     */
     this.color = Config.slot.color;
 
-    //gameLogic
+    /**
+     * Has a tetrimino slot placed on it or not.
+     * @type {boolean}
+     */
     this.isFilled = isFilled;
   }
 
-  setCoordinates = (i, j) => {
-    this.i = i;
-    this.j = j;
-    this.x = j * this.w;
-    this.y = i * this.h;
-  };
-
+  /**
+   * Display the slot.
+   */
   show = () => {
     let {p, x, y, w, h} = this;
-    p.noStroke();
+    p.push();
+    p.translate(x, y);
+    // p.noStroke();
     p.fill(this.color);
-    p.rect(x, y, w, h);
+    p.rect(0, 0, w, h);
+    p.pop();
   }
 }
